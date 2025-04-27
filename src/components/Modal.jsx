@@ -4,6 +4,7 @@ import Button from "./Button";
 
 const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
   const dialog = useRef();
+
   useImperativeHandle(ref, () => {
     return {
       open() {
@@ -11,17 +12,18 @@ const Modal = forwardRef(function Modal({ children, buttonCaption }, ref) {
       },
     };
   });
+
   return createPortal(
     <dialog
       ref={dialog}
-      className="backdrop:bg-stone-900/90 rounded-md shadow-md p-4 flex flex-col"
+      className=" backdrop:bg-stone-900/90 p-4 rounded-md shadow-md"
     >
       {children}
       <form method="dialog" className="mt-4 text-right">
         <Button>{buttonCaption}</Button>
       </form>
     </dialog>,
-    document.body
+    document.getElementById("modal-root")
   );
 });
 
